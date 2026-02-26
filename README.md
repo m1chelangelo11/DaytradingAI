@@ -1,1 +1,1 @@
-# DaytradingAI
+# trAIder
