@@ -13,7 +13,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(log_dir / 'alpaca.log'),
+        logging.FileHandler(log_dir / 'historical_data_client.log'),
         logging.StreamHandler()
     ]
 )
@@ -33,7 +33,7 @@ if not API_KEY or not SECRET_KEY:
 data_client = StockHistoricalDataClient(API_KEY, SECRET_KEY)
 
 all_data = []
-symbols = ["AAPL", "GOOGL", "MSFT"]
+symbols = ["AAPL"]
 
 end_date = datetime.now()
 start_date = end_date - timedelta(days=30)
@@ -64,8 +64,9 @@ try:
     
     data_dir = current_dir.parent / "data"
     data_dir.mkdir(exist_ok=True)
-    
-    save_path = data_dir / 'market_data.csv'
+    raw_dir = data_dir / 'raw'
+    raw_dir.mkdir(exist_ok=True)
+    save_path = raw_dir / 'market_data.csv'
     combined_df.to_csv(save_path)
     logger.info(f"Dataset saved to: {save_path}")
 
